@@ -23,7 +23,7 @@
     <main>
       <section id="empty">
         <h1>还没有主题</h1>
-        <p>左边新建一个，例如「健身」。选片写在 B 站那一节，点按钮后由转写程序自己跑。</p>
+        <p>左边新建一个主题。进入主题后，从信息源里点「B站」，再写要转的视频。</p>
       </section>
       <section id="desk" hidden>
         <header class="top">
@@ -31,33 +31,24 @@
             <p class="eyebrow">主题</p>
             <h1 id="topic-title"></h1>
           </div>
-          <button id="save" type="button">保存</button>
+          <nav class="views" aria-label="页面">
+            <button type="button" data-view="sources">信息源</button>
+            <button type="button" data-view="review" class="ghost">审阅</button>
+            <button type="button" data-view="chat" class="ghost">对话</button>
+          </nav>
         </header>
-        <label class="field">
-          <span>兴趣</span>
-          <textarea id="interest" rows="2" placeholder="这个主题你想弄清什么"></textarea>
-        </label>
-        <details class="notes">
-          <summary>关键词和未决问题</summary>
-          <div class="pair">
-            <label class="field">
-              <span>关键词</span>
-              <textarea id="keywords" rows="2"></textarea>
-            </label>
-            <label class="field">
-              <span>未决问题</span>
-              <textarea id="questions" rows="2"></textarea>
-            </label>
+        <section id="view-sources">
+          <div id="source-home">
+            <p class="quiet">选一个信息源，进入它自己的功能页。</p>
+            <div id="source-list" class="source-grid"></div>
           </div>
-        </details>
-        <article class="card" id="bilibili-card">
-          <div class="card-head">
-            <div>
-              <h2 id="source-label">B站转写</h2>
-              <p id="source-missing" class="warn" hidden></p>
+          <article class="card" id="bilibili-page" hidden>
+            <div class="card-head">
+              <button id="back-sources" type="button" class="ghost">返回信息源</button>
+              <p id="run-state" class="pill">还没有运行</p>
             </div>
-            <p id="run-state" class="pill">还没有运行</p>
-          </div>
+            <h2 id="source-label">B站</h2>
+            <p id="source-missing" class="warn" hidden></p>
           <dl class="contract">
             <div><dt>启动</dt><dd id="source-command"></dd></div>
             <div><dt>目录</dt><dd id="source-cwd"></dd></div>
@@ -71,12 +62,31 @@
           <p class="hint">一行一个。视频或收藏夹写完整链接。UP 写成 <code>up 空间链接或 mid --since 2026-10-19 --until 2026-10-19</code>。清单写成 <code>items D:\路径\清单.json</code>。三种不要写在一起。平台不会把链接追加到命令后面。</p>
           <div class="row">
             <button id="launch" type="button">开始转写</button>
+            <button id="save" type="button" class="ghost">保存选片</button>
             <button id="import-inbox" type="button" class="ghost">导入收件箱</button>
             <span id="inbox-count" class="quiet"></span>
           </div>
           <pre id="run-log" class="log">还没有运行。</pre>
-        </article>
-        <div class="lower">
+          </article>
+        </section>
+        <section id="view-review" hidden>
+          <label class="field">
+            <span>兴趣</span>
+            <textarea id="interest" rows="2" placeholder="这个主题你想弄清什么"></textarea>
+          </label>
+          <details class="notes">
+            <summary>关键词和未决问题</summary>
+            <div class="pair">
+              <label class="field">
+                <span>关键词</span>
+                <textarea id="keywords" rows="2"></textarea>
+              </label>
+              <label class="field">
+                <span>未决问题</span>
+                <textarea id="questions" rows="2"></textarea>
+              </label>
+            </div>
+          </details>
           <article class="card review">
             <div class="card-head">
               <h2>审阅</h2>
@@ -101,6 +111,8 @@
               </label>
             </div>
           </article>
+        </section>
+        <section id="view-chat" hidden>
           <article class="card chat">
             <div class="card-head">
               <h2>对话</h2>
@@ -112,7 +124,7 @@
               <button type="submit">记下问题</button>
             </form>
           </article>
-        </div>
+        </section>
       </section>
     </main>
   </div>

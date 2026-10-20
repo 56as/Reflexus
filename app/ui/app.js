@@ -5,6 +5,8 @@ const state = {
   topic: null,
   item: null,
   polling: false,
+  view: "sources",
+  sourcePage: "list",
 };
 
 const $ = (id) => document.getElementById(id);
@@ -29,6 +31,10 @@ async function start() {
   $("app").hidden = false;
   $("new-topic").addEventListener("submit", createTopic);
   $("save").addEventListener("click", () => saveTopic());
+  $("back-sources").addEventListener("click", () => showSourcePage("list"));
+  document.querySelectorAll("[data-view]").forEach((button) => {
+    button.addEventListener("click", () => showView(button.dataset.view));
+  });
   $("bilibili").addEventListener("input", refreshBilibiliCheck);
   $("launch").addEventListener("click", launchBilibili);
   $("import-inbox").addEventListener("click", importInbox);
@@ -41,6 +47,7 @@ async function start() {
   });
   const sourceResult = await api("list_sources");
   state.sources = sourceResult.sources || [];
+  renderSourceList();
   renderSource(state.sources.find((source) => source.id === "bilibili"));
   if (sourceResult.errors && sourceResult.errors.length) {
     showSourceError(sourceResult.errors.join(" "));
@@ -115,7 +122,53 @@ async function openTopic(name) {
   $("inbox-count").textContent = `收件箱 ${result.topic.inbox_count} 份，已导入 ${result.topic.item_count} 条`;
   refreshBilibiliCheck();
   renderTopics();
+  showView("sources");
+  showSourcePage("list");
   await Promise.all([loadRun(), loadReview(), loadChat()]);
+}
+
+function showView(view) {
+  state.view = view;
+  $("view-sources").hidden = view !== "sources";
+  $("view-review").hidden = view !== "review";
+  $("view-chat").hidden = view !== "chat";
+  document.querySelectorAll("[data-view]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.view === view);
+    button.classList.toggle("ghost", button.dataset.view !== view);
+  });
+}
+
+function showSourcePage(page) {
+  state.sourcePage = page;
+  $("source-home").hidden = page !== "list";
+  $("bilibili-page").hidden = page !== "bilibili";
+}
+
+function renderSourceList() {
+  const list = $("source-list");
+  list.replaceChildren();
+  const known = {
+    bilibili: "视频、口播全文和播放地址",
+  };
+  if (!state.sources.length) {
+    const empty = document.createElement("p");
+    empty.className = "quiet";
+    empty.textContent = "还没有信息源。把清单放到 sources/ 后会出现在这里。";
+    list.append(empty);
+    return;
+  }
+  state.sources.forEach((source) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "source-card";
+    const title = document.createElement("strong");
+    title.textContent = source.label;
+    const detail = document.createElement("small");
+    detail.textContent = known[source.id] || "进入这个信息源";
+    button.append(title, detail);
+    button.addEventListener("click", () => showSourcePage(source.id === "bilibili" ? "bilibili" : "list"));
+    list.append(button);
+  });
 }
 
 function fields() {
@@ -270,6 +323,7 @@ async function openItemUrl() {
 
 function askAboutItem() {
   if (!state.item) return;
+  showView("chat");
   $("chat-input").value = `关于「${state.item.title}」，我想确认：`;
   $("chat-input").focus();
 }

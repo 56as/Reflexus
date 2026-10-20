@@ -144,6 +144,41 @@ h2 { font-size: 18px; }
 
 .top, .card-head { justify-content: space-between; }
 
+.views { display: flex; gap: 8px; }
+
+.views button.active {
+  background: #8d3b24;
+  color: #fffaf4;
+  border-color: #8d3b24;
+}
+
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.source-card {
+  text-align: left;
+  background: #fbf8f2;
+  color: #1d1a16;
+  border: 1px solid #e3dacd;
+  border-radius: 16px;
+  padding: 18px 18px 16px;
+}
+
+.source-card strong {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.source-card small {
+  display: block;
+  color: #746b60;
+}
+
 .eyebrow {
   margin: 0 0 2px;
   font-size: 12px;
