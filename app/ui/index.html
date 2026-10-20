@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Reflexus</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <p id="boot">正在打开研究桌面…</p>
+  <div id="app" hidden>
+    <aside>
+      <div class="brand">
+        <p class="mark">Reflexus</p>
+        <p class="tag">先审阅，再追问</p>
+      </div>
+      <nav id="topics" aria-label="主题"></nav>
+      <form id="new-topic">
+        <label class="sr" for="topic-name">新主题</label>
+        <input id="topic-name" maxlength="40" placeholder="新主题，例如健身" autocomplete="off">
+        <button type="submit">新建</button>
+      </form>
+    </aside>
+    <main>
+      <section id="empty">
+        <h1>还没有主题</h1>
+        <p>左边新建一个，例如「健身」。选片写在 B 站那一节，点按钮后由转写程序自己跑。</p>
+      </section>
+      <section id="desk" hidden>
+        <header class="top">
+          <div>
+            <p class="eyebrow">主题</p>
+            <h1 id="topic-title"></h1>
+          </div>
+          <button id="save" type="button">保存</button>
+        </header>
+        <label class="field">
+          <span>兴趣</span>
+          <textarea id="interest" rows="2" placeholder="这个主题你想弄清什么"></textarea>
+        </label>
+        <details class="notes">
+          <summary>关键词和未决问题</summary>
+          <div class="pair">
+            <label class="field">
+              <span>关键词</span>
+              <textarea id="keywords" rows="2"></textarea>
+            </label>
+            <label class="field">
+              <span>未决问题</span>
+              <textarea id="questions" rows="2"></textarea>
+            </label>
+          </div>
+        </details>
+        <article class="card" id="bilibili-card">
+          <div class="card-head">
+            <div>
+              <h2 id="source-label">B站转写</h2>
+              <p id="source-missing" class="warn" hidden></p>
+            </div>
+            <p id="run-state" class="pill">还没有运行</p>
+          </div>
+          <dl class="contract">
+            <div><dt>启动</dt><dd id="source-command"></dd></div>
+            <div><dt>目录</dt><dd id="source-cwd"></dd></div>
+            <div><dt>传入</dt><dd>RESEARCH_TOPIC、RESEARCH_TOPIC_DIR、RESEARCH_INBOX、RESEARCH_TOPIC_FILE</dd></div>
+            <div><dt>收回</dt><dd>inbox 里的 JSON：source、external_id、title、url、summary、body、extra</dd></div>
+          </dl>
+          <label class="field">
+            <span>选片 <em id="bilibili-check">这一节是空的</em></span>
+            <textarea id="bilibili" rows="5" spellcheck="false" placeholder="https://www.bilibili.com/video/BVxxxx"></textarea>
+          </label>
+          <p class="hint">一行一个。视频或收藏夹写完整链接。UP 写成 <code>up 空间链接或 mid --since 2026-10-19 --until 2026-10-19</code>。清单写成 <code>items D:\路径\清单.json</code>。三种不要写在一起。平台不会把链接追加到命令后面。</p>
+          <div class="row">
+            <button id="launch" type="button">开始转写</button>
+            <button id="import-inbox" type="button" class="ghost">导入收件箱</button>
+            <span id="inbox-count" class="quiet"></span>
+          </div>
+          <pre id="run-log" class="log">还没有运行。</pre>
+        </article>
+        <div class="lower">
+          <article class="card review">
+            <div class="card-head">
+              <h2>审阅</h2>
+              <button id="another" type="button" class="ghost">换一条</button>
+            </div>
+            <div id="review-empty" class="quiet">导入后，未读材料会出现在这里。</div>
+            <div id="review" hidden>
+              <p class="meta"><span id="item-source"></span><span id="item-status"></span></p>
+              <h3 id="item-title"></h3>
+              <p id="item-summary"></p>
+              <pre id="item-body"></pre>
+              <div class="row">
+                <button type="button" data-status="kept">采纳</button>
+                <button type="button" data-status="dropped" class="ghost">丢弃</button>
+                <button type="button" data-status="unsure" class="ghost">存疑</button>
+                <button id="open-url" type="button" class="ghost">打开地址</button>
+                <button id="ask-item" type="button" class="ghost">就此提问</button>
+              </div>
+              <label class="field">
+                <span>我的判断</span>
+                <textarea id="judgment" rows="3" placeholder="记下你为什么留下或丢掉"></textarea>
+              </label>
+            </div>
+          </article>
+          <article class="card chat">
+            <div class="card-head">
+              <h2>对话</h2>
+            </div>
+            <div id="messages"></div>
+            <form id="chat-form">
+              <label class="sr" for="chat-input">问题</label>
+              <textarea id="chat-input" rows="3" placeholder="针对这个主题追问。模型接口下一版接上，现在会先写入 chat.md。"></textarea>
+              <button type="submit">记下问题</button>
+            </form>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

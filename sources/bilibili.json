@@ -1,0 +1,9 @@
+{
+  "id": "bilibili",
+  "label": "B站转写",
+  "cwd": "D:\\cursor\\Reflexus\\bilibili",
+  "command": ["python", "convert.py"],
+  "env": {
+    "PYTHONIOENCODING": "utf-8"
+  }
+}

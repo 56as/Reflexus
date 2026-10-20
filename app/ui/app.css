@@ -1,0 +1,273 @@
+:root {
+  color: #1d1a16;
+  background: #ebe4d6;
+  font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+button, input, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: #8d3b24;
+  color: #fffaf4;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button.ghost {
+  background: transparent;
+  color: #1d1a16;
+  border: 1px solid #d9d0c2;
+}
+
+#boot {
+  margin: 24px;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 232px 1fr;
+  height: 100vh;
+}
+
+aside {
+  background: #221e1a;
+  color: #f6f1e7;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 16px 16px;
+  min-height: 0;
+}
+
+.mark {
+  margin: 0;
+  font-family: Palatino, "Palatino Linotype", "Songti SC", serif;
+  font-size: 28px;
+  letter-spacing: 0.02em;
+}
+
+.tag, .eyebrow, .quiet, .hint, .meta {
+  color: #746b60;
+}
+
+.tag {
+  margin: 4px 0 18px;
+  color: #c8bfb2;
+  font-size: 13px;
+}
+
+#topics {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: auto;
+  flex: 1;
+}
+
+.topic {
+  text-align: left;
+  background: transparent;
+  color: #f6f1e7;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.topic.active { background: #3a332c; }
+
+.topic small {
+  display: block;
+  color: #b7ad9f;
+  font-size: 12px;
+}
+
+#new-topic {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+#new-topic input {
+  width: 100%;
+  border: 1px solid #8a8175;
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: #3a332c;
+  color: #f6f1e7;
+}
+
+main {
+  min-width: 0;
+  overflow: auto;
+  padding: 22px 28px 32px;
+}
+
+#empty, .card, .field textarea, .log {
+  background: #fbf8f2;
+  border: 1px solid #e3dacd;
+  border-radius: 16px;
+}
+
+#empty { padding: 28px; }
+
+h1, h2, h3 { margin: 0; font-weight: 600; }
+
+h1 { font-size: 28px; }
+
+h2 { font-size: 18px; }
+
+.top, .card-head, .row, .meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top, .card-head { justify-content: space-between; }
+
+.eyebrow {
+  margin: 0 0 2px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.field span { font-size: 13px; }
+
+.field em { font-style: normal; color: #746b60; margin-left: 8px; }
+
+.field textarea, .log {
+  width: 100%;
+  border: 1px solid #e3dacd;
+  padding: 10px 12px;
+  resize: vertical;
+  background: #fff;
+}
+
+.notes { margin-top: 8px; }
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card { padding: 16px 18px 18px; margin-top: 16px; }
+
+.contract {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 6px 10px;
+  margin: 12px 0 0;
+  font-size: 13px;
+}
+
+.contract div { display: contents; }
+
+.contract dt { color: #746b60; }
+
+.contract dd { margin: 0; overflow-wrap: anywhere; }
+
+.hint { margin: 8px 0 0; font-size: 13px; }
+
+code {
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 12px;
+}
+
+.pill {
+  margin: 0;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #efe7da;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.pill.running { background: #ead7b4; }
+.pill.done { background: #d7eadc; }
+.pill.error { background: #f0d2c8; }
+
+.warn { color: #8d3b24; margin: 4px 0 0; }
+
+.log {
+  margin: 12px 0 0;
+  min-height: 96px;
+  max-height: 160px;
+  overflow: auto;
+  background: #241f1b;
+  color: #f3ecdf;
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.lower {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.review pre {
+  white-space: pre-wrap;
+  max-height: 220px;
+  overflow: auto;
+  margin: 8px 0 0;
+}
+
+.chat { display: flex; flex-direction: column; min-height: 420px; }
+
+#messages {
+  flex: 1;
+  overflow: auto;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 280px;
+}
+
+.message {
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: #f3eee4;
+}
+
+.message.user { background: #f6e4da; }
+
+.message small { display: block; color: #746b60; }
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

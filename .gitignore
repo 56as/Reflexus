@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+library/
+/requirements.txt
+01_*/
+02_*/
+03_*/
+04_*/
